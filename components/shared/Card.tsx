@@ -8,7 +8,7 @@ import { DeleteConfirmation } from './DeleteConfirmation'
 
 type CardProps = {
   event: IEvent,
-  hasOrderLink?: boolean,
+  hasOrderLink?: boolean, 
   hidePrice?: boolean
 }
 

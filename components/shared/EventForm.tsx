@@ -23,15 +23,14 @@ import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
 
 
-
 type EventFormProps = {
-    userId:string,
-    type:"Create" | "Update"
+  userId: string
+  type: "Create" | "Update"
+  event?: IEvent,
+  eventId?: string
 }
 
-
-const EventForm = ({userId,type}:EventFormProps) => {
-
+const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = event && type === 'Update' 
     ? { 
@@ -104,22 +103,21 @@ const EventForm = ({userId,type}:EventFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <div className="flex flex-col gap-5 md:flex-row">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem className="w-full ">
-              <FormControl>
-                <Input placeholder=" Event title" {...field} className="input-field" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input placeholder="Event title" {...field} className="input-field" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
             control={form.control}
             name="categoryId"
             render={({ field }) => (
@@ -220,8 +218,8 @@ const EventForm = ({userId,type}:EventFormProps) => {
                 </FormItem>
               )}
             />
-
-            <FormField
+        
+          <FormField
               control={form.control}
               name="endDateTime"
               render={({ field }) => (
@@ -253,7 +251,6 @@ const EventForm = ({userId,type}:EventFormProps) => {
             />
         </div>
 
-
         <div className="flex flex-col gap-5 md:flex-row">
             <FormField
               control={form.control}
@@ -283,6 +280,7 @@ const EventForm = ({userId,type}:EventFormProps) => {
                                   checked={field.value}
                                 id="isFree" className="mr-2 h-5 w-5 border-2 border-primary-500" />
                               </div>
+          
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -319,10 +317,7 @@ const EventForm = ({userId,type}:EventFormProps) => {
             />
         </div>
 
-        
 
-
-        
         <Button 
           type="submit"
           size="lg"
